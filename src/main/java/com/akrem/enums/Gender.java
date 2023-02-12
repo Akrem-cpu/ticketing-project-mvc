@@ -1,4 +1,4 @@
-package com.cydeo.enums;
+package com.akrem.enums;
 
 public enum Gender {
 

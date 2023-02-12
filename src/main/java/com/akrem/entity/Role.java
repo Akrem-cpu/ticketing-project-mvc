@@ -1,4 +1,4 @@
-package com.cydeo.entity;
+package com.akrem.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

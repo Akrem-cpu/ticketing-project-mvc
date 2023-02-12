@@ -1,6 +1,6 @@
-package com.cydeo.dto;
+package com.akrem.dto;
 
-import com.cydeo.enums.Gender;
+import com.akrem.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
