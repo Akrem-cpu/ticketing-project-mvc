@@ -99,7 +99,6 @@
                                                 <div class="form-group">
                                                     <label>Choose a Role</label>
                                                     <select th:field="*{roleDTO}"  name="role" class="custom-select">
-                                                        <option th:value="''" th:text="select"></option>
                                                         <option th:value="${role.id}" th:each="role : ${roles}" th:text="${role.getDescription()}"></option>
                                                     </select>
                                                 </div>
@@ -161,8 +160,8 @@
                                                 <td th:text="${user.phone}"></td>
                                                 <td th:text="${user.roleDTO.getDescription()}"></td>
                                                 <td class="actions">
-                                                    <a th:href="@{/user/update/{id}(${user.userName})}"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
-                                                    <a th:href="@{/user/delete}" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
+                                                    <a th:href="@{/user/update/{id}(id=${user.userName})}"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
+                                                    <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
                                                 </td>
                                             </tr>
 

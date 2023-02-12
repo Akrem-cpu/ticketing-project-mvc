@@ -99,7 +99,6 @@
                                                 <div class="form-group">
                                                     <label>Choose a Role</label>
                                                     <select th:field ="*{roleDTO}" name="role" class="custom-select">
-                                                        <option th:value="' '" th:text="select" > </option>
                                                         <option th:value="${role.getId()}" th:each="role : ${roles}" th:text="${role.getDescription()}" ></option>
                                                     </select>
                                                 </div>
@@ -152,14 +151,14 @@
                                             </tr>
                                             </thead>
 
-                                            <tbody>
+                                            <tbody th:each="user : ${users}">
 
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td th:text="${user.firstName}"></td>
+                                                <td th:text="${user.userName}"></td>
+                                                <td th:text="${user.gender.getValue()}" ></td>
+                                                <td th:text="${user.phone}"></td>
+                                                <td th:text="${user.roleDTO.getDescription()}"></td>
                                                 <td class="actions">
                                                     <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
                                                     <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
