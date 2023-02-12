@@ -2,6 +2,7 @@ package com.akrem.controller;
 
 import com.akrem.dto.UserDTO;
 import com.akrem.service.RoleService;
+import com.akrem.service.UserService;
 import com.akrem.service.impl.RoleServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class UserController {
     private final RoleService roleService;
+    private final UserService userService;
 
 
 
@@ -22,7 +24,8 @@ public class UserController {
     public String userCreate(Model model){
         model.addAttribute("user" , new UserDTO());
         model.addAttribute("roles" , roleService.findAll());
-        System.out.println(roleService.findAll());
+        model.addAttribute("users" , userService.findAll());
+
 
         return "user/create";
     }
