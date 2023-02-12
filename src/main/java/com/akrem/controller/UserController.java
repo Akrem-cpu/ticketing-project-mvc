@@ -37,10 +37,10 @@ public class UserController {
     }
 
 
-    @GetMapping ("/update")
-    public String updateUser( Model model){
-        model.addAttribute("user" , new UserDTO());
-        model.addAttribute("roles" , roleService.findAll());
+    @GetMapping ("/update/{userName}")
+    public String editUser(@PathVariable("userName") String userName ,Model model ){
+        model.addAttribute("user" , userService.findById(userName));
+
 
 
 
