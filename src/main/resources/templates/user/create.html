@@ -100,7 +100,7 @@
                                                     <label>Choose a Role</label>
                                                     <select th:field="*{roleDTO}"  name="role" class="custom-select">
                                                         <option th:value="''" th:text="select"></option>
-                                                        <option th:each="role : ${user.getRoleDTO()}" th:text="select"></option>
+                                                        <option th:value="${role}" th:each="role : ${roles}" th:text="${role.getDescription()}"></option>
                                                     </select>
                                                 </div>
                                             </div>

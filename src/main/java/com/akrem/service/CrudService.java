@@ -4,9 +4,8 @@ import java.util.List;
 
 public interface CrudService<T,ID> {
     T save(T t);
-    T findById(T T);
     List<T> findAll();
-    void delete(T Object);
+    T findById(ID T);
     void deleteById(ID id);
 
 
