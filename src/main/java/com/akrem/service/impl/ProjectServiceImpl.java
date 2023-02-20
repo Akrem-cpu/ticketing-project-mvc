@@ -1,6 +1,7 @@
 package com.akrem.service.impl;
 
 import com.akrem.dto.ProjectDTO;
+import com.akrem.enums.Status;
 import com.akrem.service.ProjectService;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,11 @@ import java.util.List;
 public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> implements ProjectService{
     @Override
     public ProjectDTO save(ProjectDTO object) {
+        if(object.getProjectStatus() == null){
+            object.setProjectStatus(Status.OPEN);
+        }else {
+            System.out.println("status is given");
+        }
       return   super.save(object.getProjectCode(),object);
     }
 
@@ -31,6 +37,7 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> im
     public void updateById(ProjectDTO object) {
         super.updateById(object.getProjectCode(),object);
     }
+
 
 
 }

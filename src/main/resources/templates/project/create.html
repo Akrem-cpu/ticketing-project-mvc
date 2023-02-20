@@ -32,7 +32,7 @@
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form th:action="@{/}" method="post" th:object="${project}">
+                                    <form th:action="@{/project/create}" method="post" th:object="${project}">
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
@@ -127,14 +127,14 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="p : ${projectList}">
+                                                <td th:text="${p.projectCode}" ></td>
+                                                <td th:text="${p.projectName}"></td>
+                                                <td th:text="${p.startDate}" ></td>
+                                                <td th:text="${p.assignedManager.firstName}"></td>
+                                                <td th:text="${p.projectStatus.getValue()}"></td>
                                                 <td>
-                                                    <a href="#"><button type="button" class="btn btn-warning rounded-0">Update</button></a>
+                                                    <a th:href="@{/project/update}"><button type="button" class="btn btn-warning rounded-0">Update</button></a>
                                                     <a href="#"><button type="button" class="btn btn-danger rounded-0">Delete</button></a>
                                                     <a href="#"><button type="button" class="btn btn-info rounded-0">Complete</button></a>
                                                 </td>
