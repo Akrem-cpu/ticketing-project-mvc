@@ -42,18 +42,21 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="p : ${projectsList}">
+                                                <td th:text="${p.getProjectCode()}" ></td>
+                                                <td th:text="${p.getProjectName()}" ></td>
+                                                <td th:text="${#temporals.format(p.startDate, 'MM/dd/yyyy')}" ></td>
+                                                <td th:text="${p.getAssignedManager().getFirstName()}"></td>
+                                                <td th:text="${p.getUncompletedTaskCounts()} +'/' + ${p.getCompletedTaskCounts()}"></td>
+                                                <td  th:text="${p.getProjectStatus().value}"></td>
                                                 <td>
-                                                    <!--Show this if the project can be completed-->
-                                                    <a class="btn btn-info rounded-0" href="#">Complete</a>
-                                                    <!--Show this if the project can not be completed-->
-                                                    <a class="btn btn-info rounded-0 disabled-button">Complete</a>
+                                                    <a th:if="${p.uncompletedTaskCounts == 0 && p.projectStatus.value != 'Completed'}"
+                                                       class="btn btn-info rounded-0"
+                                                       th:href="@{/project/manager/complete/{id}(id=${p.projectCode})}">Complete
+                                                    </a>
+                                                    <a th:if="${p.getUncompletedTaskCounts() > 0 || p.projectStatus.value == 'Completed'}"
+                                                       class="btn btn-info rounded-0 disabled-button">Complete
+                                                    </a>
                                                 </td>
                                             </tr>
                                             </tbody>
