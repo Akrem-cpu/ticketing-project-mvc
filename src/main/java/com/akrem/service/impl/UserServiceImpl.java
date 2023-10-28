@@ -1,43 +1,49 @@
 package com.akrem.service.impl;
 
+
 import com.akrem.dto.UserDTO;
+import com.akrem.mapper.UserMapper;
+import com.akrem.repository.UserRepository;
 import com.akrem.service.UserService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl extends AbstractMapService<UserDTO,String> implements UserService {
+public class UserServiceImpl implements UserService {
+    UserRepository userRepository;
+    UserMapper userMapper;
 
-    @Override
-    public UserDTO save(UserDTO userDTO) {
-        return super.save(userDTO.getUserName(),userDTO);
+    public UserServiceImpl(@Lazy UserRepository userRepository, @Lazy UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
-    public List<UserDTO> findAll() {
-        return super.findALL();
+    public List<UserDTO> listAllUsers() {
+        return userRepository.findAll().stream().map(userMapper::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public void updateById(UserDTO userDTO) {
-        super.updateById(userDTO.getUserName(),userDTO);
+    public UserDTO findByUserName(String userName) {
+        return null;
     }
 
     @Override
-    public UserDTO findById(String id) {
-        return super.findById(id);
+    public void save(UserDTO user) {
+       userRepository.save(userMapper.convertToEntity(user));
+
     }
 
     @Override
-    public void deleteById(String id) {
-       super.deleteById(id);
+    public UserDTO update(UserDTO user) {
+        return null;
     }
 
     @Override
-    public List<UserDTO> findManagers() {
-        return super.findALL().stream().filter(p-> p.getRoleDTO().getDescription().equals("manager")).collect(Collectors.toList());
+    public void deleteByUserName(String userName) {
+
     }
 }
-

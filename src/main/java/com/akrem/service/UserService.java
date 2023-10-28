@@ -1,10 +1,17 @@
 package com.akrem.service;
 
+
+
 import com.akrem.dto.UserDTO;
 
 import java.util.List;
 
-public interface UserService  extends CrudService<UserDTO , String>{
-    List<UserDTO> findManagers();
+public interface UserService {
+
+  List<UserDTO> listAllUsers();
+  UserDTO findByUserName(String userName);
+  void save(UserDTO user);
+  UserDTO update(UserDTO user);
+  void  deleteByUserName(String userName);
 
 }

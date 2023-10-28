@@ -3,27 +3,27 @@ package com.akrem.controller;
 import com.akrem.dto.UserDTO;
 import com.akrem.service.RoleService;
 import com.akrem.service.UserService;
-import com.akrem.service.impl.RoleServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("user")
-@AllArgsConstructor
 public class UserController {
     private final RoleService roleService;
     private final UserService userService;
 
-
+    public UserController(RoleService roleService, UserService userService) {
+        this.roleService = roleService;
+        this.userService = userService;
+    }
 
     @GetMapping("/create")
     public String userCreate(Model model){
         model.addAttribute("user" , new UserDTO());
-        model.addAttribute("roles" , roleService.findAll());
-        model.addAttribute("users" , userService.findAll());
+        model.addAttribute("roles" , roleService.findAllRole());
+        model.addAttribute("users" , userService.listAllUsers());
 
 
         return "/user/create";
@@ -37,26 +37,26 @@ public class UserController {
     }
 
 
-    @GetMapping ("/update/{userName}")
-    public String editUser(@PathVariable("userName") String userName ,Model model ){
-        model.addAttribute("user" , userService.findById(userName));
-        model.addAttribute("roles" , roleService.findAll());
-        model.addAttribute("users" , userService.findAll());
-        return "/user/update";
-    }
-
-    @PostMapping ("/update")
-    public String updateDone( @ModelAttribute("user") UserDTO userDTO){
-         userService.updateById(userDTO);
-
-        return "redirect:/user/create";
-    }
-    @GetMapping ("/delete/{id}")
-    public String delete(@PathVariable("id") String userName ){
-        userService.deleteById(userName);
-
-        return "redirect:/user/create";
-    }
+//    @GetMapping ("/update/{userName}")
+//    public String editUser(@PathVariable("userName") String userName ,Model model ){
+//        model.addAttribute("user" , userService.findById(userName));
+//        model.addAttribute("roles" , roleService.findAll());
+//        model.addAttribute("users" , userService.findAll());
+//        return "/user/update";
+//    }
+//
+//    @PostMapping ("/update")
+//    public String updateDone( @ModelAttribute("user") UserDTO userDTO){
+//         userService.updateById(userDTO);
+//
+//        return "redirect:/user/create";
+//    }
+//    @GetMapping ("/delete/{id}")
+//    public String delete(@PathVariable("id") String userName ){
+//        userService.deleteById(userName);
+//
+//        return "redirect:/user/create";
+//    }
 
 
 

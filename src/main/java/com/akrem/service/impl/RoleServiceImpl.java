@@ -1,45 +1,37 @@
 package com.akrem.service.impl;
 
+
 import com.akrem.dto.RoleDTO;
-import com.akrem.dto.UserDTO;
 import com.akrem.entity.Role;
+import com.akrem.mapper.RoleMapper;
+import com.akrem.repository.RoleRepository;
 import com.akrem.service.RoleService;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
-@Qualifier("this is the right imp")
-public class RoleServiceImpl extends AbstractMapService<RoleDTO, Long> implements RoleService{
+public class RoleServiceImpl implements RoleService {
+    private final RoleRepository roleRepository;
+    private final RoleMapper roleMapper;
 
-
-    @Override
-    public RoleDTO save(RoleDTO roleDTO) {
-        return super.save(roleDTO.getId(),roleDTO);
+    public RoleServiceImpl(RoleRepository roleRepository, RoleMapper roleMapper) {
+        this.roleRepository = roleRepository;
+        this.roleMapper = roleMapper;
     }
 
     @Override
-    public List<RoleDTO> findAll() {
-        return super.findALL();
+    public List<RoleDTO> findAllRole() {
+        List<Role> roleList = roleRepository.findAll();
+        return roleList.stream().map(roleMapper::convertToDTO).collect(Collectors.toList());
+
     }
 
     @Override
-    public void updateById(RoleDTO roleDTO) {
-        super.updateById(roleDTO.getId(),roleDTO);
+    public RoleDTO findById(Long Id) {
+        return null;
     }
-
-    @Override
-    public RoleDTO findById(Long id) {
-        return super.findById(id);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-          super.deleteById(id);
-    }
-
-
 
 
 }
