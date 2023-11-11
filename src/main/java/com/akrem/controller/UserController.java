@@ -37,26 +37,26 @@ public class UserController {
     }
 
 
-//    @GetMapping ("/update/{userName}")
-//    public String editUser(@PathVariable("userName") String userName ,Model model ){
-//        model.addAttribute("user" , userService.findById(userName));
-//        model.addAttribute("roles" , roleService.findAll());
-//        model.addAttribute("users" , userService.findAll());
-//        return "/user/update";
-//    }
-//
-//    @PostMapping ("/update")
-//    public String updateDone( @ModelAttribute("user") UserDTO userDTO){
-//         userService.updateById(userDTO);
-//
-//        return "redirect:/user/create";
-//    }
-//    @GetMapping ("/delete/{id}")
-//    public String delete(@PathVariable("id") String userName ){
-//        userService.deleteById(userName);
-//
-//        return "redirect:/user/create";
-//    }
+    @GetMapping ("/update/{userName}")
+    public String editUser(@PathVariable("userName") String userName ,Model model ){
+        model.addAttribute("user" , userService.findByUserName(userName));
+        model.addAttribute("roles" , roleService.findAllRole());
+        model.addAttribute("users" , userService.listAllUsers());
+        return "/user/update";
+    }
+
+    @PostMapping ("/update")
+    public String updateDone( @ModelAttribute("user") UserDTO userDTO){
+         userService.update(userDTO);
+
+        return "redirect:/user/create";
+    }
+    @GetMapping ("/delete/{id}")
+    public String delete(@PathVariable("id") String userName ){
+        userService.deleteByUserName(userName);
+
+        return "redirect:/user/create";
+    }
 
 
 
