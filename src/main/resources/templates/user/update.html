@@ -98,7 +98,7 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label>Choose a Role</label>
-                                                    <select th:field ="*{roleDTO}" name="role" class="custom-select">
+                                                    <select th:field ="*{role}" name="role" class="custom-select">
                                                         <option th:value="${role.getId()}" th:each="role : ${roles}" th:text="${role.getDescription()}" ></option>
                                                     </select>
                                                 </div>
@@ -158,7 +158,7 @@
                                                 <td th:text="${user.userName}"></td>
                                                 <td th:text="${user.gender.getValue()}" ></td>
                                                 <td th:text="${user.phone}"></td>
-                                                <td th:text="${user.roleDTO.getDescription()}"></td>
+                                                <td th:text="${user.role.getDescription()}"></td>
                                                 <td class="actions">
                                                     <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
                                                     <a href="#" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>

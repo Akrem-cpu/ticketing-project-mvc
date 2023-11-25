@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     UserMapper userMapper;
 
+
     public UserServiceImpl(@Lazy UserRepository userRepository, @Lazy UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
@@ -31,8 +32,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findByUserName(String userName) {
+        if (userName.isEmpty()){
+            return null;
+        }
         User user = userRepository.findByUserName(userName);
-
         return userMapper.convertToDTO(user);
     }
 
@@ -62,5 +65,10 @@ public class UserServiceImpl implements UserService {
         user.setIsDeleted(true);
         userRepository.save(user);
 
+    }
+
+    @Override
+    public List<UserDTO> getMangers() {
+     return userRepository.findAllByRole_Id(2L).stream().map(userMapper::convertToDTO).collect(Collectors.toList());
     }
 }

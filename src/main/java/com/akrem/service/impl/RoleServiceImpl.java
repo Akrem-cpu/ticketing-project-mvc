@@ -2,7 +2,6 @@ package com.akrem.service.impl;
 
 
 import com.akrem.dto.RoleDTO;
-import com.akrem.entity.Role;
 import com.akrem.mapper.RoleMapper;
 import com.akrem.repository.RoleRepository;
 import com.akrem.service.RoleService;
@@ -23,7 +22,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<RoleDTO> findAllRole() {
-        List<Role> roleList = roleRepository.findAll();
+        List<com.akrem.entity.Role> roleList = roleRepository.findAll();
         return roleList.stream().map(roleMapper::convertToDTO).collect(Collectors.toList());
 
     }

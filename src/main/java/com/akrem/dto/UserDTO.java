@@ -1,5 +1,6 @@
 package com.akrem.dto;
 
+import com.akrem.entity.Role;
 import com.akrem.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class UserDTO {
     private String password;
     private boolean enable;
     private String phone;
-    private RoleDTO roleDTO;
+    private RoleDTO role;
     private Gender gender;
 
     

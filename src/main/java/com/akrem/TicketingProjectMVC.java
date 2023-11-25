@@ -22,7 +22,7 @@ public class TicketingProjectMVC {
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public RoleDTO roleDTO(){
-        return new  RoleDTO();
+        return new RoleDTO();
     }
 
     @Bean
@@ -30,5 +30,6 @@ public class TicketingProjectMVC {
     public UserDTO userDTO(){
         return new UserDTO();
     }
+
 
 }
