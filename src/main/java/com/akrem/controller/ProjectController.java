@@ -1,8 +1,6 @@
 package com.akrem.controller;
 
 import com.akrem.dto.ProjectDTO;
-import com.akrem.dto.UserDTO;
-import com.akrem.enums.Status;
 import com.akrem.service.ProjectService;
 import com.akrem.service.UserService;
 import lombok.AllArgsConstructor;
@@ -10,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/project")
@@ -22,7 +18,7 @@ public class ProjectController {
 
     @GetMapping("/create")
     public String projectCreat(Model model){
-        model.addAttribute("listOfUserManager",userService.getMangers());
+        model.addAttribute("listOfUserManager",userService.findUserByRole(2L));
         model.addAttribute("project" , new ProjectDTO());
         model.addAttribute("projectList" , projectService.findAllProject());
 
@@ -37,7 +33,7 @@ public class ProjectController {
 
     @GetMapping("/update/{projectCode}")
     public String projectUpdate(@PathVariable("projectCode") String projectCode, Model model){
-        model.addAttribute("listOfUserManager",userService.getMangers());
+        model.addAttribute("listOfUserManager",userService.findUserByRole(2L));
         model.addAttribute("project" , projectService.findById(projectCode));
         model.addAttribute("projectList" , projectService.findAllProject());
 
@@ -64,5 +60,6 @@ public class ProjectController {
 
         return "redirect:/project/create";
     }
+
 
 }

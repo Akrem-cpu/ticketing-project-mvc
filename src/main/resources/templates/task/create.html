@@ -38,7 +38,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>Project</label>
-                                                    <select th:field="*{projectDTO}" name="project" class="custom-select">
+                                                    <select th:field="*{project}" name="project" class="custom-select">
                                                         <option th:value="''" th:text="Select"></option>
                                                         <option th:each="project : ${projectList}"
                                                                 th:value="${project.projectCode}"
@@ -129,7 +129,7 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="p : ${taskList}">
-                                                <td th:text="${p.projectDTO.getProjectName()}"></td>
+                                                <td th:text="${p.project.getProjectName()}"></td>
                                                 <td th:text="${p.taskSubject}"></td>
                                                 <td th:text="${p.assignedEmployee.firstName + ' ' + p.assignedEmployee.getLastName()}"></td>
                                                 <td th:text="${p.assignedDate}"></td>

@@ -13,6 +13,7 @@ public interface UserService {
   void save(UserDTO user);
   UserDTO update(UserDTO user);
   void  deleteByUserName(String userName);
-  List<UserDTO> getMangers();
+  List<UserDTO> findUserByRole(Long role);
+  UserDTO findById(String userName);
 
 }

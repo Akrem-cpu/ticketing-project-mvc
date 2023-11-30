@@ -5,6 +5,7 @@ import com.akrem.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,11 +17,12 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "projects")
+@Where(clause = "is_deleted=false")
 public class Project  extends BaseEntity{
     private String projectName;
     private String projectCode;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User assignedManager;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
