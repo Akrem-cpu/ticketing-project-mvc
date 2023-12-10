@@ -75,8 +75,8 @@ public class TaskController {
 
     @GetMapping("project-status")
     public String pendingTasks(Model model){
-        UserDTO manager = userServices.findById("Dovie76");
-        List<ProjectDTO> countedListOfProjectDTO = projectService.findAllByManger(manager);
+
+        List<ProjectDTO> countedListOfProjectDTO = projectService.listAllProjectDetails();
         model.addAttribute("projectsList",countedListOfProjectDTO);
         return "/manager/project-status";
     }

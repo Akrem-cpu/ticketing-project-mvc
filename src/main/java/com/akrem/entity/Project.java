@@ -30,8 +30,7 @@ public class Project  extends BaseEntity{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private String projectDetail;
+    @Enumerated(EnumType.STRING)
     private Status projectStatus;
-    private int completedTaskCounts;
-    private int uncompletedTaskCounts;
 
 }

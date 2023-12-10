@@ -3,13 +3,17 @@ package com.akrem.service.impl;
 import com.akrem.dto.ProjectDTO;
 import com.akrem.dto.UserDTO;
 import com.akrem.entity.Project;
+import com.akrem.entity.Task;
 import com.akrem.entity.User;
 import com.akrem.enums.Status;
 import com.akrem.mapper.ProjectMapper;
 import com.akrem.mapper.UserMapper;
 import com.akrem.repository.ProjectRepository;
+import com.akrem.repository.TaskRepository;
 import com.akrem.repository.UserRepository;
 import com.akrem.service.ProjectService;
+import com.akrem.service.TaskService;
+import com.akrem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +34,12 @@ public class ProjectServiceImp implements ProjectService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    TaskService taskService;
 
     @Override
     public List<ProjectDTO> findAllProject() {
@@ -84,8 +94,16 @@ public class ProjectServiceImp implements ProjectService {
     }
 
     @Override
-    public List<ProjectDTO> findAllByManger(UserDTO userDTO) {
-        User user = userRepository.findByUserName(userDTO.getUserName());
-        return projectRepository.findAllByAssignedManager(user).stream().map(projectMapper::convertToDTO).collect(Collectors.toList());
+    public List<ProjectDTO> listAllProjectDetails() {
+        // Floyd47
+        UserDTO currentUserDto = userService.findByUserName("harold@manager.com");
+        User currentUser = userMapper.convertToEntity(currentUserDto);
+        return projectRepository.findAllByAssignedManager(currentUser).stream().map(project->{
+            ProjectDTO projectDTO = projectMapper.convertToDTO(project);
+
+            projectDTO.setCompletedTaskCounts(taskService.totalCompletedTask(project.getProjectCode()));
+            projectDTO.setUncompletedTaskCounts(taskService.totalNonCompletedTask(project.getProjectCode()));
+            return projectDTO;
+        }).collect(Collectors.toList());
     }
 }
