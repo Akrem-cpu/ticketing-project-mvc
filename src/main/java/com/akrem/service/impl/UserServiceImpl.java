@@ -32,9 +32,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findByUserName(String userName) {
-        if (userName.isEmpty()){
-            return null;
-        }
         User user = userRepository.findByUserName(userName);
         return userMapper.convertToDTO(user);
     }

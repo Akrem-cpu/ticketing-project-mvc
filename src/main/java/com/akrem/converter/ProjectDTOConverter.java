@@ -26,7 +26,7 @@ public class ProjectDTOConverter implements Converter<String, ProjectDTO> {
 
     @Override
     public ProjectDTO convert(String source) {
-        if(source == null){
+        if(source == null || source.equals("")){
             return null;
         }
 

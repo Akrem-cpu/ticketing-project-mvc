@@ -21,13 +21,15 @@ import java.util.List;
 @Table(name = "Tasks")
 @Where(clause = "is_deleted=false")
 public class Task extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch =  FetchType.LAZY)
     private Project project;
-    @ManyToOne (fetch = FetchType.LAZY)
+    @ManyToOne(fetch =  FetchType.LAZY)
     private User assignedEmployee;
     private String taskSubject;
     private String taskDetail;
+    @Enumerated(EnumType.STRING)
     private Status taskStatus;
+
     @Column(nullable = false)
     private LocalDate assignedDate;
 

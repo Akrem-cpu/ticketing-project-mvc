@@ -38,7 +38,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>Project</label>
-                                                    <select th:field="*{projectDTO}" name="project" class="custom-select" >
+                                                    <select th:field="*{project}" name="project" class="custom-select" >
                                                         <option th:value="''" th:text="Select"></option>
                                                         <option th:each="project : ${projectList}"
                                                                 th:value="${project.projectCode}"
@@ -128,11 +128,11 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="p : ${taskList}">
-                                                <td th:text="${p.projectDTO.getProjectName()}"></td>
+                                                <td th:text="${p.project.getProjectName()}"></td>
                                                 <td th:text="${p.taskSubject}"></td>
                                                 <td th:text="${p.assignedEmployee.firstName + ' ' + p.assignedEmployee.getLastName()}"></td>
                                                 <td th:text="${p.assignedDate}"></td>
-                                                <td th:text="${p.projectDTO.projectStatus.getValue()}"></td>
+                                                <td th:text="${p.project.projectStatus.getValue()}"></td>
                                                 <td class="actions">
                                                     <a th:href="@{/task/update/{id}(id = ${p.getId()})}" class="btn btn-warning rounded-0">Update</a>
                                                     <a th:href="@{/task/delete/{id}(id = ${p.getId()})}" class="btn btn-danger rounded-0">Delete</a>

@@ -40,5 +40,21 @@ public class User extends BaseEntity{
         this.phone = phone;
         this.role = role;
         this.gender = gender;
+
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", phone='" + phone + '\'' +
+                ", role=" + role +
+                ", gender=" + gender +
+                ", project=" + project +
+                '}';
     }
 }

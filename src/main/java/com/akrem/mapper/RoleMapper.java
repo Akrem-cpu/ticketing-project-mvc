@@ -16,7 +16,6 @@ public class RoleMapper {
     }
 
     public RoleDTO convertToDTO(com.akrem.entity.Role entity){
-        System.out.println(entity.toString());
         return   mapper.map(entity , RoleDTO.class);
     }
 }

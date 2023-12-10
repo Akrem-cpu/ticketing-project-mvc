@@ -22,7 +22,7 @@ public class Project  extends BaseEntity{
     private String projectName;
     private String projectCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch =  FetchType.LAZY)
     private User assignedManager;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -33,4 +33,5 @@ public class Project  extends BaseEntity{
     private Status projectStatus;
     private int completedTaskCounts;
     private int uncompletedTaskCounts;
+
 }
