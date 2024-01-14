@@ -20,6 +20,7 @@ import java.util.List;
 @Where(clause = "is_deleted=false")
 public class Project  extends BaseEntity{
     private String projectName;
+    @Column(unique = true)
     private String projectCode;
 
     @ManyToOne(fetch =  FetchType.LAZY)

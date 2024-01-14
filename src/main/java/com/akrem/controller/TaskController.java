@@ -3,12 +3,14 @@ package com.akrem.controller;
 import com.akrem.dto.ProjectDTO;
 import com.akrem.dto.TaskDTO;
 import com.akrem.dto.UserDTO;
+import com.akrem.enums.Status;
 import com.akrem.service.ProjectService;
 import com.akrem.service.TaskService;
 import com.akrem.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class TaskController {
 
     @GetMapping("create")
     public String taskCreate(Model model){
-        model.addAttribute("projectList", projectService.findAllProject());
+        model.addAttribute("projectList", projectService.listAllProjectDetails());
         List<UserDTO> collect = userServices.findUserByRole(3L);
         model.addAttribute("userList", collect);
         model.addAttribute("taskList", taskService.findAllTask());
@@ -43,7 +45,7 @@ public class TaskController {
 
     @GetMapping("update/{id}")
     public String taskUpdate(@PathVariable("id")Long id, Model model){
-        model.addAttribute("projectList", projectService.findAllProject());
+        model.addAttribute("projectList", projectService.listAllProjectDetails());
         model.addAttribute("userList", userServices.findUserByRole(3L));
         model.addAttribute("taskList", taskService.findAllTask());
         model.addAttribute("task", taskService.findById(id));
@@ -81,6 +83,45 @@ public class TaskController {
         return "/manager/project-status";
     }
 
+    @GetMapping("employee/pending-tasks")
+    public String employeePendingTasks(Model model) {
+     model.addAttribute("tasks", taskService.listAllTasksByStatusIsNot(Status.COMPLETE));
+        return "task/pending-tasks";
+    }
+
+    @GetMapping("employee/edit/{id}")
+    public String employeeEditTask(@PathVariable("id") Long id, Model model) {
+
+        model.addAttribute("task", taskService.findById(id));
+        model.addAttribute("tasks", taskService.listAllTasksByStatusIsNot(Status.COMPLETE));
+        model.addAttribute("statuses", Status.values());
+
+        return "task/status-update";
+
+    }
+
+    @PostMapping("/employee/update/{id}")
+    public String employeeUpdateTask(@ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute("tasks", taskService.listAllTasksByStatusIsNot(Status.COMPLETE));
+            model.addAttribute("statuses", Status.values());
+
+            return "/task/status-update";
+
+        }
+
+        taskService.updateStatus(task);
+        return "redirect:/task/employee/pending-tasks";
+
+    }
+
+    @GetMapping("employee/archive")
+    public String employeeArchivedTasks(Model model) {
+        model.addAttribute("tasks", taskService.listAllTasksByStatus(Status.COMPLETE));
+        return "task/archive";
+    }
 
 
 }

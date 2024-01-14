@@ -1,5 +1,6 @@
 package com.akrem.service.impl;
 
+import com.akrem.converter.MapperUtils;
 import com.akrem.dto.ProjectDTO;
 import com.akrem.dto.UserDTO;
 import com.akrem.entity.Project;
@@ -41,6 +42,9 @@ public class ProjectServiceImp implements ProjectService {
     @Autowired
     TaskService taskService;
 
+    @Autowired
+    MapperUtils mapperUtils;
+
     @Override
     public List<ProjectDTO> findAllProject() {
         return projectRepository.findAll().stream().map(projectMapper::convertToDTO).collect(Collectors.toList());
@@ -81,7 +85,10 @@ public class ProjectServiceImp implements ProjectService {
     public void deletedById(String projectCode) {
        Project project = projectRepository.findByProjectCode(projectCode);
        project.setIsDeleted(true);
+       project.setProjectCode(project.getProjectCode() +"-"+ project.getId());
+        taskService.deleteByProjectId(projectMapper.convertToDTO(project));
        projectRepository.save(project);
+
     }
 
     @Override
@@ -89,6 +96,7 @@ public class ProjectServiceImp implements ProjectService {
     public void complete(String projectCode) {
         Project project = projectRepository.findByProjectCode(projectCode);
         project.setProjectStatus(Status.COMPLETE);
+        taskService.compeleteByProject(projectMapper.convertToDTO(project));
         projectRepository.save(project);
 
     }
@@ -97,6 +105,7 @@ public class ProjectServiceImp implements ProjectService {
     public List<ProjectDTO> listAllProjectDetails() {
         // Floyd47
         UserDTO currentUserDto = userService.findByUserName("harold@manager.com");
+
         User currentUser = userMapper.convertToEntity(currentUserDto);
         return projectRepository.findAllByAssignedManager(currentUser).stream().map(project->{
             ProjectDTO projectDTO = projectMapper.convertToDTO(project);
@@ -105,5 +114,11 @@ public class ProjectServiceImp implements ProjectService {
             projectDTO.setUncompletedTaskCounts(taskService.totalNonCompletedTask(project.getProjectCode()));
             return projectDTO;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProjectDTO> findAllByManger(User user) {
+        return projectRepository.findAllByAssignedManager(user).stream().map(projectMapper::convertToDTO).collect(Collectors.toList());
+
     }
 }

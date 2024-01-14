@@ -1,6 +1,7 @@
 package com.akrem.service;
 
 import com.akrem.dto.ProjectDTO;
+import com.akrem.entity.User;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface ProjectService {
     void deletedById(String projectCode);
     void complete(String projectCode);
     List<ProjectDTO> listAllProjectDetails();
+
+    List<ProjectDTO> findAllByManger(User user);
 }

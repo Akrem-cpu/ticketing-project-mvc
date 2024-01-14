@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.apache.catalina.Manager;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDate;
 import java.util.List;
 @AllArgsConstructor
@@ -22,6 +24,7 @@ public class ProjectDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private String projectDetail;
+    @Enumerated(EnumType.STRING)
     private Status projectStatus;
     private int completedTaskCounts;
     private int uncompletedTaskCounts;

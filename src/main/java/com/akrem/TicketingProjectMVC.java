@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class TicketingProjectMVC {
@@ -19,16 +21,11 @@ public class TicketingProjectMVC {
     public ModelMapper mapper(){
         return new ModelMapper();
     }
-    @Bean
-    @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public RoleDTO roleDTO(){
-        return new RoleDTO();
-    }
 
     @Bean
     @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public UserDTO userDTO(){
-        return new UserDTO();
+    public PasswordEncoder passwordENcoder(){
+        return new BCryptPasswordEncoder();
     }
 
 

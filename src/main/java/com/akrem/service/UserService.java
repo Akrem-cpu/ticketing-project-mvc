@@ -2,6 +2,7 @@ package com.akrem.service;
 
 
 
+import com.akrem.dto.ProjectDTO;
 import com.akrem.dto.UserDTO;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface UserService {
   void  deleteByUserName(String userName);
   List<UserDTO> findUserByRole(Long role);
   UserDTO findById(String userName);
+
+
 
 }

@@ -20,7 +20,7 @@ public class ProjectController {
     public String projectCreat(Model model){
         model.addAttribute("listOfUserManager",userService.findUserByRole(2L));
         model.addAttribute("project" , new ProjectDTO());
-        model.addAttribute("projectList" , projectService.findAllProject());
+        model.addAttribute("projectList" , projectService.listAllProjectDetails());
 
 
         return "/project/create";
@@ -35,7 +35,7 @@ public class ProjectController {
     public String projectUpdate(@PathVariable("projectCode") String projectCode, Model model){
         model.addAttribute("listOfUserManager",userService.findUserByRole(2L));
         model.addAttribute("project" , projectService.findById(projectCode));
-        model.addAttribute("projectList" , projectService.findAllProject());
+        model.addAttribute("projectList" , projectService.listAllProjectDetails());
 
 
         return "project/update";
