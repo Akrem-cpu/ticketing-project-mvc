@@ -16,6 +16,7 @@ import com.akrem.service.ProjectService;
 import com.akrem.service.TaskService;
 import com.akrem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -103,8 +104,8 @@ public class ProjectServiceImp implements ProjectService {
 
     @Override
     public List<ProjectDTO> listAllProjectDetails() {
-        // Floyd47
-        UserDTO currentUserDto = userService.findByUserName("harold@manager.com");
+
+        UserDTO currentUserDto = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 
         User currentUser = userMapper.convertToEntity(currentUserDto);
         return projectRepository.findAllByAssignedManager(currentUser).stream().map(project->{

@@ -13,6 +13,7 @@ import com.akrem.repository.TaskRepository;
 import com.akrem.service.TaskService;
 import com.akrem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -105,7 +106,7 @@ public class TaskServiceImp implements TaskService {
 
     @Override
     public List<TaskDTO> listAllTasksByStatusIsNot(Status status) {
-        User loggedInUser = userMapper.convertToEntity(userService.findByUserName("john@employee.com"));
+        User loggedInUser = userMapper.convertToEntity(userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName()));
         return taskRepository.getAllByTaskStatusIsNotAndAssignedEmployee(status,loggedInUser).stream().map(taskMapper::convertToDTO).collect(Collectors.toList());
     }
 
@@ -121,7 +122,7 @@ public class TaskServiceImp implements TaskService {
 
     @Override
     public List<TaskDTO> listAllTasksByStatus(Status status) {
-        User loggedInUser = userMapper.convertToEntity(userService.findByUserName("john@employee.com"));
+        User loggedInUser = userMapper.convertToEntity(userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName()));
         return taskRepository.getAllByTaskStatusIsAndAssignedEmployee(status,loggedInUser).stream().map(taskMapper::convertToDTO).collect(Collectors.toList());
     }
 
